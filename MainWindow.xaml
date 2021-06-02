@@ -1,0 +1,90 @@
+﻿<Window x:Class="SprayPaintImage.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+        xmlns:toolkit ="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:local="clr-namespace:SprayPaintImage"
+        
+        mc:Ignorable="d"
+        Title="Spray Paint" Height="600" Width="800" WindowState="Maximized">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <ei:CallMethodAction MethodName="KeyDown" TargetObject="{Binding}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Name="btnOpen" Height="55" Width="75" Background="LightBlue" BorderBrush="Black" BorderThickness="1" Click="Open_File" ClickMode="Press">Open</Button>
+                <Separator />
+                <Button Name="btnSave" Height="55" Width="75" Background="LightBlue" BorderBrush="Black" BorderThickness="1" Click="Save_File" ClickMode="Press">Save</Button>
+                
+            </ToolBar>
+            <ToolBar>
+                <Button Name="btnUndo" Height="55" Width="75" Background="LightBlue" BorderBrush="Black" BorderThickness="1" Click="Undo" ClickMode="Press">Undo</Button>
+                <Separator />
+                <Button Name="btnRedo" Height="55" Width="75" Background="LightBlue" BorderBrush="Black" BorderThickness="1" Click="Redo" ClickMode="Press">Redo</Button>
+
+            </ToolBar>
+            <ToolBar>
+                <Border Width="100" BorderBrush="LightGray" BorderThickness="0,0,1,0" Margin="0,2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="15"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox Height="55" Margin="15" SelectedIndex="{Binding PenWidthIndex}" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" >
+                            <ComboBoxItem Height="20">
+                                <Rectangle Height="2" Stroke="Black" Fill="Black" Width="88"  />
+                            </ComboBoxItem>
+                            <ComboBoxItem Height="20">
+                                <Rectangle Height="4" Stroke="Black" Fill="Black" Width="88"   />
+                            </ComboBoxItem>
+                            <ComboBoxItem Height="20">
+                                <Rectangle Height="6" Stroke="Black" Fill="Black" Width="88"  />
+                            </ComboBoxItem>
+                            <ComboBoxItem Height="20">
+                                <Rectangle Height="8" Stroke="Black" Fill="Black" Width="88"  />
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Grid.Row="1" Text="Tip Size" Foreground="Gray" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Border>
+            </ToolBar>
+            <ToolBar>
+                <Border Width="100" BorderBrush="LightGray" BorderThickness="0,0,1,0" Margin="0,2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="15"/>
+                        </Grid.RowDefinitions>
+                        <toolkit:ColorPicker Name="colorPicker" Grid.Row="0" Margin="25" SelectedColor="{Binding SelectColor}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch"  />
+                        <TextBlock Grid.Row="1" Text="Color" Foreground="Gray" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                
+            </ToolBar>
+
+        </ToolBarTray>
+        <Grid>
+            <ScrollViewer Name="MainScrollViewer" PanningMode="Both" Margin="0,0,0,0" VerticalScrollBarVisibility="Auto" Background="#FFA0A0A0" HorizontalScrollBarVisibility="Auto">
+                <StackPanel Name="GridPanel" Margin="0,0,0,0" Background="Transparent" DockPanel.Dock="Bottom">
+                    <Border  Name="bborder" BorderThickness="2" BorderBrush="Black" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        
+                            <InkCanvas  Name="paintSurface">
+                                <InkCanvas.Background>
+                                    <SolidColorBrush Color="White" Opacity="0"/>
+                                </InkCanvas.Background>
+                            </InkCanvas>
+
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+    
+</Window>
